@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单loading</title>
+    <style>
+        .loading:after {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            content: "\2026";
+            -webkit-animation: ellipsis 2s infinite;
+            text-shadow:0 0 2px rgba(0,0,0,.5);
+        }
+
+        /* // 动画部分 */
+        @-webkit-keyframes ellipsis {
+            from {
+                width: 2px;
+            }
+
+            to {
+                width: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading"></div>
+</body>
+
+</html>

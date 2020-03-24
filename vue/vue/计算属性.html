@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-模糊查询</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 模糊查询 -->
+        <input type="text" v-model="value">
+        <ul>
+            <!-- 使用计算属性 -->
+            <li v-for="data in getDatalist">
+                {{data}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                value: '',
+                datalist: ["aaa", "bbb", "ccc", "abb", "ddd", "cdd", "ddc"],
+            },
+            //    书写计算属性:计算属性就是定义时按方法写，使用时按属性使用
+            computed: {
+                getDatalist(){
+                    return this.datalist.filter((item)=>{
+                        if(item.indexOf(this.value) > -1){
+                            return item;
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

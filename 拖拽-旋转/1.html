@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000;
+            overflow: hidden;
+        }  
+
+        #perspective {
+            /* 添加景深 */
+            /* 该样式不能添加在wrap上，因为我们需要将其放在包裹它的父级容器上，如果添加在wrap上就会在wrap旋转的时候导致转过一圈之后后面的小图片上了前面来还是小的，没有立体效果 */
+            perspective: 800px;
+        }
+        #wrap {
+            position: relative;
+            width: 120px;
+            height: 180px;
+            /* border: 1px solid #f00; */
+            margin: 250px auto;
+            /* 搭建3D效果必须的两个属性 */
+            /* 让其成为 3D转换，转换角度时不会发生变窄效果 */
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+        #wrap img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+            box-shadow: 0 0 10px #fff;
+            /* 图片的倒影 + 线性渐变（从哪开始，开始时的颜色，结束时的颜色）*/
+            -webkit-box-reflect: below 5px linear-gradient(to top, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0) 100%);
+        }
+        /* 图片下面的底盘样式 */
+        #wrap p {
+            width: 800px;
+            height: 800px;
+            background: #000;
+            border-radius: 100%;
+            transform: rotateX(90deg);
+            position: absolute;
+            top: 102%;
+            left: 50%;
+            margin-top: -400px;
+            margin-left: -400px;
+            opacity: 0.5;
+            /*  */
+            background-image: radial-gradient( rgba(244, 23, 234,0), rgba(0, 0, 0,1));
+        }
+    </style>
+</head>
+
+<body>
+    <div id="perspective">
+        <div id="wrap">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <img src="images/6.jpg" alt="">
+            <!-- 图片下面的底盘 -->
+            <p></p>
+        </div>
+    </div>
+    <script>
+        // 获取到容器wrap
+        var oWrap = document.getElementById('wrap');
+        // 获取到所有的图片
+        var oImg = oWrap.getElementsByTagName('img');
+        // 图片的个数
+        var oImgLength = oImg.length;
+        // 每张图片需要旋转的角度 
+        var Deg = 360 / oImgLength;
+        // 利用for循环给每一个img图片都加上旋转的样式+移动的样式（移动的样式一定要加在旋转的后面）
+        for (var i = 0; i < oImgLength; i++) {
+            oImg[i].style.transform = 'rotateY(' + i * Deg + 'deg) translateZ(350px)'
+        }
+
+        // 实现所有的图片根据鼠标的移动而移动，鼠标移动的快 图片移动的也快
+        // 拖拽 三个事件 按下 移动 抬起
+        var nowX, nowY, lastX, lastY, minuX, minuY; //定义当前鼠标的xy坐标，上一个点的xy坐标，和他们之间的距离差值
+        var roX = 0; //定义图片沿着X轴旋转的角度，
+        var roY = 0; //定义图片沿着Y轴旋转的角度，
+        var timer; //设置一个定时器
+        // 鼠标按下
+        document.onmousedown = function (e) {
+            // 在鼠标刚开始按下的瞬间就记录此时的坐标赋值给lastX lastY, 为了避免第一次相减的时候出错
+            lastX = e.clientX;
+            lastY = e.clientY;
+            // 移动
+            this.onmousemove = function (e) {
+                e = e || window.e;
+                // 1.首先获取到鼠标移动时的坐标，
+                nowX = e.clientX; //鼠标距离页面左边的距离
+                nowY = e.clientY; //鼠标距离页面顶边的距离
+
+                minuX = nowX - lastX;  //当前坐标和前一坐标的差值(因为此时nowX的坐标已经更新)
+                minuY = nowY - lastY;
+                // 将Y轴两点的坐标的差值赋值给容器wrap沿X轴旋转的角度roX,更新wrap的旋转角度，鼠标拖拽越快minuY变化就越大，roX就越大，旋转就越快
+                roX -= minuY * 0.08;
+                // console.log(roX)
+                // 将X轴两点的坐标的差值赋值给wrap沿Y轴旋转的角度roY,更新wrap的旋转角度，鼠标拖拽越快minuX变化就越大，roY就越大，旋转就越快
+                roY += minuX * 0.08;
+                // console.log(roY)
+                // 让容器wrap进行沿X轴和Y轴的旋转
+                oWrap.style.transform = 'rotateX(' + roX + 'deg) rotateY(' + roY + 'deg)';
+                // 2.生成div，让div跟着鼠标动
+                // var oDiv = document.createElement('div');
+                // oDiv.style.cssText = 'width:5px; height:5px; background:red; position:fixed; left:' + nowX + 'px; top:' + nowY + 'px';
+                // this.body.appendChild(oDiv);
+
+                lastX = nowX;  //将此时的鼠标坐标赋值给lastX
+                lastY = nowY;
+            }
+            // 抬起
+            this.onmouseup = function () {
+                // 移动结束
+                this.onmousemove = null;
+                // 当鼠标抬起的时候，不让图片的旋转立马停下来，让它有一个过渡期；
+                timer = setInterval(function(){
+                    minuX *= 0.95;
+                    minuY *= 0.95;
+                    roX -= minuY * 0.08;
+                    roY += minuX * 0.08;
+                    oWrap.style.transform = 'rotateX(' + roX + 'deg) rotateY(' + roY + 'deg)';
+                    if(Math.abs(minuY) < 0.5 && Math.abs(minuX) < 0.1){
+                        clearInterval(timer);
+                    }
+                })
+            }
+            // 阻止默认事件，当鼠标在文档上按下的时候，---主要就是为了解决鼠标按下在页面上滑动的时候，会出现蓝色选中的情况
+            return false;
+        }
+    </script>
+</body>
+
+</html>

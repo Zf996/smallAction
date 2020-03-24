@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ref传参</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="box">
+        <!-- 一、ref -->
+        <!-- ref放到标签上 拿到的是原生节点 -->
+        <!-- ref放到组件上 拿到的是组件对象 -->
+        <input type="text" ref="mytext">
+        <button @click="get()">点我获取input输入框的值</button>
+        <!-- 通过ref获取子组件的data变量和方法 -->
+        <child ref="mychild"></child>
+        <button @click="getchild()">点我获取child的信息</button>
+        <button @click="getchildfuc()">点我获取child的的方法</button>
+
+    </div>
+    <script>
+        Vue.component('child',{
+            template:`
+                <div>{{childmsg}}</div>
+            `,
+            data(){
+                return{
+                    childmsg: '我是子组件的信息'
+                }
+            },
+            methods:{
+                childfuc(){
+                    alert('调用了孩子的方法')
+                }
+            }
+        })
+        var vm = new Vue({
+            el: "#box",
+            data: {},
+            methods: {
+                get() {
+                    // this.$refs.mytext就是获取到的节点  .value的值就是它的用户输入的值
+                    console.log(this.$refs.mytext.value)
+                },
+                getchild(){
+                    // this.$refs.mytext就是获取到child组件对象  可以随意.其里面的变量
+                    console.log(this.$refs.mychild.childmsg);
+                },
+                getchildfuc(){
+                    // this.$refs.mytext就是获取到child组件对象  可以随意.其里面的方法
+                    this.$refs.mychild.childfuc();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

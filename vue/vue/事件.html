@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 一、事件修饰符////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <ul @click.self="hadelUlClick">
+            <!-- 对于事件函数后面要不要加（），看自己情况，需要传递参数就加，不需要就不加 -->
+            <!-- 1.阻止子元素事件冒泡行为 @click.stop-->
+            <!-- 2.阻止父元素事件冒泡行为 @click.self 表示父组件只接自己本身触发的事件函数-->
+            <li @click.stop="hadelLiClick">111111</li>
+            <li @click="hadelLiClick()">222222</li>
+            <li @click.stop="hadelLiClick">333333</li>
+        </ul>
+        <!-- 3.阻止默认行为 -->
+        <a href="http://www.baidu.com" @click.prevent="changePage()">changePage</a>
+        <!-- 二、按键修饰符/////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- 只有按下回车键时才会发送请求@keyup.enter/@keyup.up/@keyup.键值。。。。。 -->
+        <input type="text" @keyup.enter="keyup($event)">
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                bump: 0
+            },
+            methods: {
+                hadelUlClick() {
+                    console.log("ul click");
+
+                },
+                hadelLiClick(event) {
+                    // js里面的阻止事件冒泡
+                    // event.stopPropagation();
+                    console.log("li click");
+
+                },
+                changePage(event) {
+                    // 原生js里面阻止事件的默认行为
+                    // event.preventDefault();
+                    // 可以在此处添加验证，验证通过在跳转
+                    if (this.bump > 1) {
+                        window.location = 'http://www.baidu.com';
+                    } else {
+                        alert('不符合跳转条件')
+                    }
+                },
+                keyup(event) {
+                    // 打印事件对象
+                    // console.log(event);
+                    // 通过判断事件对象的keycode键值
+                    // if(event.keycode == 13){
+                    //     console.log("信息已提交！！！")
+                    // }
+                    console.log("信息已提交！！！")
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

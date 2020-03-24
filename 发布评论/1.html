@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发布评论</title>
+    <style>
+        #box {
+            border: 1px solid #ddd;
+        }
+
+        ul#list li {
+            border-bottom: 1px dashed #eee;
+            color: red;
+        }
+
+        ul#list li a {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <textarea name="" id="content" cols="30" rows="10"></textarea>
+        <input type="button" value="发布评论" id="submit">
+        <ul id="list">
+
+        </ul>
+    </div>
+    <script>
+        window.onload = function () {
+            // 获取对应的标签
+            var submitBtn = document.getElementById('submit');
+            var contentText = document.getElementById('content');
+            var ulList = document.getElementById('list');
+            // 点击发布按钮
+            submitBtn.onclick = function () {
+                // 获取用户输入的内容
+                var content = contentText.value;
+                if (content == '') {
+                    alert('请输入评论的内容：');
+                } else {
+                    // 创建li标签
+                    var myLi = document.createElement('li');
+                    myLi.innerHTML = `${content}<a class="a" href = 'javascript:void(0)'>删除</a>`;
+                    ulList.insertBefore(myLi, ulList.children[0]);
+                    // 清楚评论框的内容
+                    contentText.value = '';
+                }
+
+                // 点击删除按钮
+                var delList = document.getElementsByClassName('a');
+                console.log(delList)
+                for (var i = 0; i < delList.length; i++) {
+                    delList[i].onclick = function () {
+                        this.parentNode.remove();
+                    }
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>

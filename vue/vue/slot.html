@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slot</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    
+</head>
+<body>
+    <!--
+         slot插槽
+         *内容分发---混合父组件的内容与子组件的自己的模板
+         *父组件模板的内容在父组件作用域内编译，子组件模板的内容在子组件的作用域内编译
+        单个插槽：<slot></slot>
+        具名插槽：<slot name="aaa"></slot>
+        用途：轮播图，封装自己的组件，别人就可以自定义轮播图里面的内容在外面（父组件中），但是内容会显示到子组件里
+    -->
+    
+    <!-- 要把父组件的内容放到子组件里面显示：在子组件里面写入slot,在父组件中将想要插入子组件的内容写在子组件里面 -->
+    <!-- 如果要把父组件多个元素插入到子组件里面，就要给插槽起个名字,起了名字就可以随便规定插槽的位置了 -->
+    <div id="box">
+        <child>
+            <div slot="top">我是上面的内容</div>
+            <div slot="bottom">我是下面的内容</div>
+            <div>我是父组件的内容，但是我在自组件里面显示了哈哈哈！！！！</div>
+        </child>
+    </div>
+    <script>
+        Vue.component("child",{
+            template:`
+            <div>
+                <slot name="top"></slot>
+                child
+                <slot name="bottom"></slot>
+                <slot><slot>
+            </div>
+        `
+        })
+        var vm = new Vue({
+            el: "#box",
+            data:{
+
+            },
+            methods:{}
+        })
+    </script>
+</body>
+</html>

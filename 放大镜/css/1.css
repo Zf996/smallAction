@@ -1,0 +1,90 @@
+/* 样式重置 */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: green;
+}
+/* ul样式重置 */
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+/* 最外层的大容器 */
+#wrap{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 400px;
+    height: 480px;
+    border: 1px #888 solid;
+    /* margin: 50px auto; */
+    background-color: grey;
+}
+/* 中图的容器 */
+#wrap .content{
+    position: absolute;
+    width: 401px;
+    height: 401px;
+}
+/* 遮罩层 */
+#wrap .content .shadow{
+    width: 180px;
+    height: 180px;
+    background-color: #abcdef;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: .5;
+    display: none;
+    cursor: pointer;
+}
+/* 中图图片 */
+#wrap .content img{
+    width: 400px;
+    height: 400px;
+}
+/* 小图列表 */
+#wrap .list ul {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 400px;
+}
+#wrap .list ul li{
+    margin: 10px;
+    border: 1px solid  #888;
+}
+/* 当鼠标悬停在小图片上时有的样式 */
+.on{
+    border: 1px solid red;
+}
+/* 小图图片 */
+#wrap .list ul li img{
+    width: 50px;
+    height: 50px;
+}
+/* 大图的容器 */
+#wrap .big{
+    display: none;
+    width: 400px;
+    height: 400px;
+    border: 1px solid rgb(11, 166, 187);
+    position: absolute;
+    top: 0px;
+    left: 400px;
+    overflow: hidden;
+}
+/* 大图图片 */
+#wrap .big img {
+    width: 800px;
+    height: 800px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+

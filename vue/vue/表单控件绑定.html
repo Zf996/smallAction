@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单控件绑定---购物车的实现</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="box">
+        <!-- 一、完成购物车的案例************************************************************************************* -->
+        <input type="checkbox" name="" id="" @change="selAll()" v-model="isAllsel">
+        <ul>
+            <li v-for="item in dataList">
+                <input type="checkbox" @change="change()" v-model="checkGroup" :value="item">{{item}}
+                <button @click="del(item)">-</button>
+                {{item.number}}
+                <!-- 如果事件函数里面的代码逻辑很少就可以直接写在里面 -->
+                <button @click="item.number++">+</button>
+            </li>
+        </ul>
+        <!-- {{checkGroup}} -->
+        <!-- 采用函数的写法就可以实现实时动态用户选择的数据，从而计算出总金额 -->
+        <p>总金额：{{getSum()}}</p>
+        <!-- 二、表单修饰符******************************************** -->
+        <input type="text" v-model="username">{{username}}
+        <br/>
+        <!-- 1.v-model.lazy 加上lazy后表单元素不会在用户没输入一个字母的时候都会去更新，而是在最后输完离开焦点的时候更新视图 -->
+        <input type="text" v-model.lazy="username">{{username}}
+        <br/>
+        <!-- 2.v-model.number 加上.number之后输入框里面只能输入数字, -->
+        <input type="text" v-model.number="username">{{username}}
+        <!-- 3.v-model.trim 加上.trim之后用户开头和结尾输入的空格不会算入value中 -->
+        <br/>
+        <input type="text" v-model.trim="username">|{{username}}|
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                username: '',
+                isAllsel: false,
+                checkGroup: [],
+                dataList: [{
+                    name: '商品1',
+                    price: 11,
+                    number: 1,
+                    id: 1
+                }, {
+                    name: '商品2',
+                    price: 22,
+                    number: 1,
+                    id: 2
+                }, {
+                    name: '商品3',
+                    price: 33,
+                    number: 1,
+                    id: 3
+                }]
+            },
+            methods: {
+                getSum() {
+                    let sum = 0;
+                    for (var i in this.checkGroup) {
+                        sum += this.checkGroup[i].number * this.checkGroup[i].price;
+                    }
+                    return sum;
+                },
+                selAll() {
+                    if (!this.isAllsel) {
+                        this.checkGroup = [];
+                    } else {
+
+                        this.checkGroup = this.dataList;
+                    }
+                },
+                change() {
+                    if (this.checkGroup.length == this.dataList.length) {
+                        this.isAllsel = true;
+                    } else {
+                        this.isAllsel = false;
+                    }
+                },
+                del(item) {
+                    // 接收到上面传递过来的参数
+                    // console.log(item)
+                    if (item.number = 1) {
+                        item.number = 1;
+                    } else {
+
+                        item.number--;
+                    }
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

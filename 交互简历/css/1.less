@@ -1,0 +1,208 @@
+@import "reset.css";
+
+/*
+*   虽然移动端（安卓&ios）上的浏览器大部分都是webkit内核的，但是由于很多手机操作系统版本过低（尤其是安卓手机）
+*   导致很多css3新特性不能有效识别，此时我们使用的大部分css3属性都要两套才能兼容(加前缀的在前)
+*   -webkit-animation
+*   animation
+*   有js插件可以使用（prefixfree.min.js）,导入插件后会吧所有有需要加前缀的帮我们加上
+*/
+html {
+    font-size: 100px;
+    /* 640px设计稿中： 1rem = 100px*/
+
+}
+
+html,
+body {
+    height          : 100%;
+    overflow        : hidden;
+    background-color: #f4f4f4;
+
+}
+
+.mainBox {
+    max-width : 640px;
+    height    : 100%;
+    margin    : 0 auto;
+    background: #FFF;
+}
+
+// 公共样式
+.loadingBox,
+.phoneBox {
+    position: relative;
+    height  : 100%;
+    overflow: hidden;
+    display : none;
+}
+
+// loading
+.loadingBox {
+    background-color: #000;
+
+    .title {
+        position  : absolute;
+        left      : 0;
+        top       : 50%;
+        margin-top: -2.2rem;
+        /*-0.7(正中间)+1.5（距离中间靠上的位移）*/
+        width: 100%;
+        ;
+        height: 1.4rem;
+        color : #FFF;
+
+        H1 {
+            line-height: .75rem;
+            font-size  : .5rem;
+            text-align : center;
+        }
+
+        H2 {
+            margin-top    : .2rem;
+            line-height   : .45rem;
+            text-align    : center;
+            letter-spacing: .04rem;
+        }
+    }
+
+    .progresss {
+        position        : absolute;
+        top             : 50%;
+        left            : 50%;
+        margin          : -.15rem 0 0 -2.3rem;
+        width           : 4.6rem;
+        height          : .3rem;
+        background-color: #FFF;
+
+        .current {
+            position       : absolute;
+            top            : 0;
+            left           : 0;
+            width          : 0%;
+            height         : 100%;
+            background     : -webkit-linear-gradient(left bottom, #5cb85c 0%, #5cb85c 25%, #74c274 25%, #74c274 50%, #5CB85C 50%, #5CB85C 75%, #74c274 75%, #74c274 100%);
+            background-size: .3rem .3rem;
+            animation      : loadingMore 10s linear 0s infinite both;
+            transition     : all .3s linear; //让进度条平缓的过渡到100%
+        }
+    }
+}
+
+@keyframes loadingMore {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 -.3rem;
+    }
+}
+
+// phone区域样式
+.phoneBox {
+    display        : block;
+    background     : url("../img/zf_phoneBg.jpg") no-repeat;
+    background-size: cover;
+    width          : 100vw;
+    height         : 100vh;
+    position       : relative;
+    display        : flex;
+    flex-direction : column;
+    justify-content: space-between;
+    align-items    : center;
+
+    h2 {
+        // position: absolute;
+        width      : 100%;
+        height     : 2rem;
+
+        img {
+            display   : block;
+            width     : 2.62rem;
+            height    : 1.25rem;
+            margin    : 0 auto;
+            margin-top: 0.5rem;
+
+        }
+
+        span {
+            // position      : absolute;
+            display          : block;
+            width            : 100%;
+            height           : 0.3rem;
+            top              : 1.85rem;
+            font-size        : 0.3rem;
+            text-align       : center;
+            line-height      : 0.3rem;
+            letter-spacing   : 0.05rem;
+            color            : #FFF;
+        }
+    }
+
+    .wrap {
+        width          : 5.2rem;
+        height         : 3.6rem;
+        background     : url("../img/zf_phoneListen.png");
+        background-size: cover;
+        margin-bottom  : 0.6rem;
+        display        : flex;
+        justify-content: space-between;
+        align-items    : center;
+
+        .anwser {
+            position: relative;
+            width   : 2.6rem;
+            height  : 3.6rem;
+
+            .markLink {
+                position     : absolute;
+                left        : -0.1rem;
+                bottom       : 0.42rem;
+                display      : block;
+                width        : 1.6rem;
+                height       : 1.6rem;
+                border-radius: 50%;
+                animation    : bling2 1s linear 1s infinite;
+            }
+        }
+
+        .hang {
+            position: relative;
+            width   : 2.6rem;
+            height  : 3.6rem;
+
+            .markLink {
+                position     : absolute;
+                right        : -0.1rem;
+                bottom       : 0.42rem;
+                display      : block;
+                width        : 1.6rem;
+                height       : 1.6rem;
+                border-radius: 50%;
+                animation    : bling 1s linear 1s infinite;
+            }
+        }
+    }
+}
+
+@keyframes bling {
+    0% {
+        border: 0;
+    }
+
+    100% {
+        border: lightgreen 3px solid;
+
+    }
+}
+@keyframes bling2 {
+    0% {
+        border: 0;
+    }
+
+    100% {
+        border: red 3px solid;
+
+    }
+}

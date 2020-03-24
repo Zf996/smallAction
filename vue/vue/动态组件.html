@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态组件</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+    <style>
+        footer {
+            position: fixed;
+            top: 90vh;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            float: left;
+            margin-left: 20px;
+        }
+
+        footer ul li a {
+            text-decoration: none;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 点击底部导航栏页面就会切换到对应的组件 -->
+        <!-- 一、动态组件 -->
+        <!-- <component> 动态绑定多个组件到它的is属性 -->
+        <!-- <keep-alive> 保留状态，避免重复的渲染 -->
+        <keep-alive>
+            <component :is="who"></component>
+
+        </keep-alive>
+        <footer>
+            <ul>
+                <li><a @click="who = 'home'">首页</a></li>
+                <li><a @click="who = 'list'">列表页</a></li>
+                <li><a @click="who = 'shopcar'">购物车页面</a></li>
+            </ul>
+        </footer>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                who: 'home'
+            },
+            methods: {
+
+            },
+            // 定义局部组件
+            components: {
+                "home": {
+                    template: `
+                        <div>我是home组件
+                            <input type="text"/>
+                        
+                        </div>
+                    `
+                },
+                "list": {
+                    template: `
+                        <div>list</div>
+                    `
+                },
+                "shopcar": {
+                    template: `
+                        <div>我是shopcar组件</div>
+                    `
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

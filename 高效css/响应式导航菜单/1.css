@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "PingFang SC","Microsoft Yahei", sans-serif;
+}
+/* 防止下面出现滚动条 */
+body {
+    overflow: hidden;
+}
+header {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1abc9c;
+    overflow: hidden;
+}
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+    height: 80px;
+    background-color: rgba(65, 81, 101, 0.9);
+    
+}
+.logo{
+    font-size: 24px;
+    font-weight: 600;
+    color: #dadbdd;
+    flex: 1;
+}
+.nav-menu{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 550px;
+}
+.nav-menu li {
+    list-style: none;
+    font-weight: 600;
+}
+/* 汉堡 */
+.burger div{
+    width: 25px;
+    height: 3px;
+    background-color: #dadbdd;
+    margin: 4px;
+}
+/* 汉堡默认大屏不显示 */
+.burger {
+    display: none;
+}
+/* 响应式布局 */
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        position: absolute;
+        top: 80px;
+        right: 0px ;
+        bottom: 0;
+        width: 30vw;
+        height: calc(100vh - 80px);
+        background-color: rgba(65, 81, 101, 0.9);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+
+        /* 右边竖侧的导航先默认不显示----右移100% */
+        transform: translateX(100%);
+        opacity: 0;
+        /* 加上过度的效果 */
+        transition: 0.4s ease-in-out;
+    }
+    .nav-menu.open{
+        transform: translateX(0);
+        opacity: 1;
+
+    }
+    .nav-menu li {
+        margin: 3vh;
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    /* 小屏下面才显示 */
+    .burger {
+        display: block;
+    }
+    .burger.active div {
+        transition: 0.3s ease-in-out 0.3s;
+    }
+    .burger.active .top-line{
+        transform: rotate(45deg) translate(4px,6px);
+    }
+    .burger.active .bottom-line{
+        transform: rotate(-45deg) translate(4px,-6px);
+    }
+    .burger.active .middle-line {
+        opacity: 0;
+        transform: translateX(10px);
+        transition: 0.3s ease-in-out;
+    }
+    @keyframes slideIn {
+        from{
+            transform: translateX(20px);
+            opacity: 0;
+        }
+        to{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+}

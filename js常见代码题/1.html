@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js常见代码题</title>
+    <style>
+        .active{
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="year">
+    <input type="button" id="check" value="检测是否为闰年">
+    <hr>
+    <!-- 购物车 -->
+    <input type="text" value="1" id="num">
+    <input type="button" value="-" id="jian">
+    <input type="button" value="+" id="jia">
+    <hr>
+    <!-- 倒计时 -->
+    <div id="lun">10</div>
+    <hr>
+    <!-- table隔行换色 -->
+    <table border="1" style="width: 200px;">
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+    </table>
+    <script>
+        // 1.输出1-100以内的偶数的和
+    //     function getSum() {
+    //         for (var i = 1, sum = 0; i <= 100; i++) {
+    //             if (i % 2 == 0) {
+    //                 sum += i;
+    //             }
+                
+    //         }
+    //         return sum;
+    //     }
+    //    console.log(getSum());
+        // 2.定义一个方法，输入年份，判断是不是闰年
+        // const yearEl = document.getElementById("year");
+        // const checkEl = document.getElementById("check");
+        // checkEl.addEventListener("click", getRunyear)
+        // function getRunyear(){
+        //     // console.log(yearEl.value);
+        //     const year = yearEl.value;
+        //     if(year % 4 ==0&&year%10!=0||year%400==0){
+        //         alert("闰年")
+        //     }else{
+        //         alert("no闰年");
+        //     }
+        // }
+        // 3.输出2000~2016中所有的闰年
+        // function getAllrunyear(){
+        //     for(var i=2000; i<=2016; i++){
+        //         if(i%4 == 0 && i%10 !=0 || i%400==0){
+        //             document.write(i)
+        //         }
+        //     }
+        // }
+        // getAllrunyear();
+        // 4.实现商城详情数值加减效果
+        // var numEl = document.getElementById("num");
+        // const jianEl = document.getElementById("jian");
+        // const jiaEl = document.getElementById("jia");
+        // jianEl.addEventListener("click", jian);
+        // jiaEl.addEventListener("click", jia);
+        //     function jian(){
+        //         let numValue = numEl.value;
+        //         if(numValue > 1){
+        //             numValue = --numValue
+        //         }
+        //         document.getElementById("num").value = numValue;
+        //     }
+        //     function jia(){
+        //         let numValue = numEl.value;
+                
+        //             numValue = ++numValue
+                
+        //             document.getElementById("num").value = numValue;
+        //     }
+        // 5.实现倒计时轮盘效果 10 9 8 7....0
+            // function countDown(){
+            //     let val = document.getElementById("lun").innerHTML;
+            //     if(val > 0){
+            //         document.getElementById("lun").innerHTML = --val;
+            //     }else{
+            //         document.getElementById("lun").innerHTML = '倒计时结束'
+            //         clearInterval(lun);
+            //     }
+
+            // }   
+            // const lun = setInterval(countDown, 1000)
+            // 6.表格隔行换色效果
+            window.onload = function(){
+                var trs = document.querySelectorAll("table tr")
+                // console.log(trs)
+                for(var i = 0; i < trs.length; i++){
+                    if(i%2==0){
+                        trs[i].classList.add("active")
+                    }
+                }
+            }
+
+    </script>
+</body>
+
+</html>

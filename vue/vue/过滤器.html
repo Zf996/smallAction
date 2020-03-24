@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器</title>
+    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <!--
+             一、过滤器的一个很实用的功能：
+            假如我们要向后台请求很多张图片，但是前台需要的又不是很高清的图片。比如猫眼电影，它需要的就是一个小小的压缩图片，不需要讲后台很大的图片
+            传到前端，这是我们就需要在前端将img的url里面写入我们前端需要的图片的尺寸，如下
+            "http://p1.meituan.net/w.h/movie/54c4bfe5bbd82023b77844ed10d4e9ec1948884.jpg"
+            但是向后台请求的时候用的是：下面的路径
+            "http://p1.meituan.net/120.180/movie/54c4bfe5bbd82023b77844ed10d4e9ec1948884.jpg"
+            这就需要我们的过滤器了：看如下代码：↓
+        -->
+        <ul>
+            <li v-for="data in movieList">
+                <div>{{data.nm}}</div>
+                <img :src="data.img | zhangfeipath" alt="">
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.filter('zhangfeipath',function(data){
+            return data.replace('w.h','120.180')
+        })
+        var vm = new Vue({
+            el: "#box",
+            data:{
+                movieList:[]
+            },
+            mounted() {
+                axios.get('movie.json').then(res=>{
+                    console.log(res.data);
+                    this.movieList = res.data.movieList;
+                })
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slice</title>
+</head>
+<body>
+    <script>
+        Array.prototype.mySlice = function(){
+            let newArr = [];
+            for(var i = 0; i< this.length; i++){
+                newArr.push(this[i]);
+            }
+            return newArr;
+        }
+        var arr = [0,1,2,3];
+        var newArr = arr.mySlice();
+        console.log(newArr); //=> [0, 1, 2, 3]
+    </script>
+</body>
+</html>

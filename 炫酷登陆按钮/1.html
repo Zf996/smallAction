@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炫酷登陆按钮</title>
+    <link rel="stylesheet" href="1.css">
+</head>
+
+<body>
+    <button class="login">
+        <span>LOGIN</span>
+        <div class="loading">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <svg class="checkmark" width="30px" height="30px" stroke="white" fill="none">
+            <polyline points="2,10,12,18,28,2"></polyline>
+        </svg>
+    </button>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(
+        $('.login').click(function () {
+            $(this).toggleClass('active');
+            if ($('.login').hasClass('active')) {
+                let timer = setTimeout(() => {
+                    $(this).toggleClass('verity');
+                    clearTimeout(timer);
+                }, 2000)
+            }else{
+                $(this).toggleClass('verity');
+            }
+
+        })
+    )
+</script>
+
+</html>

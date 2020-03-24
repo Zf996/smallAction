@@ -1,0 +1,12 @@
+body{
+    /* 目的是为了产生滚动效果 */
+    height: 3000px;
+}
+#div1{
+    width: 100px;
+    height: 100px;
+    background-color: teal;
+    position: absolute;
+    top: 0;
+    right: 0;
+}

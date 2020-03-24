@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>上传图片验证</title>
+</head>
+<body>
+    <div class="uploadImg">
+        <label for="uplaod">上传图片验证：</label>
+        <input type="file" id="upload">
+    </div>
+    <script>    
+        window.onload = function(){
+            // 获取标签
+            var file = document.getElementById('upload');
+            // 监听图片选择的变化
+            file.onchange = function(){
+                // 获取上传的图片路径
+                var path = this.value;
+                // 获取.的位置
+                var loc = path.lastIndexOf('.');
+                // 截取.后图片的后缀名
+                var after = path.substr(loc);
+                // 将后缀名转小写
+                after = after.toLowerCase();
+                if(after === '.jpg' || after === '.jpeg' || after === '.png' || after === '.gif'){
+                    alert('图片上传格式正确！！！');
+                }else{
+                    alert('图片上传格式错误，请重新选择！！！');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

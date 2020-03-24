@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动旋转相册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(65, 61, 61);
+            overflow: hidden;
+        }
+
+        #perspective {
+            perspective: 800px;
+        }
+
+        #wrap {
+            position: relative;
+            width: 180px;
+            height: 120px;
+            background-color: rgb(65, 61, 61);
+            margin: 250px auto;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            /* display: none; */
+            /* animation: rotation 10s linear infinite; */
+            /* opacity: 0; */
+        }
+
+        .box {
+            width: 100%;
+            height: 100%;
+            border: cornsilk 1px solid;
+            position: absolute;
+            color: #fff;
+            text-align: center;
+            line-height: 120px;
+            opacity: 0.8;
+        }
+
+        .one {
+            background-color: crimson;
+        }
+
+        .two {
+            background-color: rgb(220, 190, 20);
+
+        }
+
+        .three {
+            background-color: rgb(43, 220, 20);
+
+        }
+
+        .four {
+            background-color: rgb(27, 204, 228);
+
+        }
+
+        .five {
+            background-color: rgb(73, 20, 220);
+
+        }
+
+        .six {
+            background-color: rgb(167, 71, 162);
+
+        }
+
+        .seven {
+            background-color: rgb(220, 20, 20);
+
+        }
+
+        .eight {
+            background-color: rgb(230, 214, 217);
+
+        }
+        @keyframes rotation {
+            from{
+                transform: rotateY(0deg);
+            }
+            /* 50%{
+                transform: rotateY(360deg);
+            } */
+            to{
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="perspective">
+        <div id="wrap">
+            <div class="box one">web</div>
+            <div class="box two">html</div>
+            <div class="box three">css</div>
+            <div class="box four">js</div>
+            <div class="box five">ts</div>
+            <div class="box six">python</div>
+            <div class="box seven">java</div>
+            <div class="box eight">c</div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            let wrapEl = document.getElementById("wrap");
+            let boxsEl = document.getElementsByClassName("box");
+            let deg = 360 / boxsEl.length;
+            wrapEl.style.animation = 'rotation 10s linear infinite';
+            for (var i = 0; i < boxsEl.length; i++) {
+                boxsEl[i].style.transform = `rotateY(${i * deg}deg) translateZ(350px)`;
+                // console.log(wrapEl.style)
+                boxsEl[i].onmouseover = () =>{
+                    console.log(wrapEl.style)
+                    wrapEl.style.animation = '';
+                    console.log(wrapEl.style)
+
+                }
+                boxsEl[i].onmouseleave = () =>{
+                    wrapEl.style.animation = 'rotation 10s linear infinite';
+                }
+            }
+            // var i = 1, speed = 0.5, a;
+            // function rotate(){
+            //     wrapEl.style.transform = `rotateY(${i}deg)`
+            //     i = i + speed;
+            //     // console.log(a) 
+            // }
+            // let timer = setInterval(() => {
+            //     rotate();
+            // }, 10)
+        }
+
+    </script>
+</body>
+
+</html>

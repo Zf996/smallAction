@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件-传参</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <!-- 一、注册组件 -->
+        <!-- <div style="background:red;height: 100px;padding: 10px;">
+            {{parentmsg}}
+            <child></child>
+        </div> -->
+        <!-- 二、父给子传参 -->
+        <!-- 注意：传参时 传递的参数的变量不可以使用大写，如pMoney是错误的 -->
+        <!-- <div style="background:red;height: 100px;padding: 10px;">
+            {{parentmsg}}
+            <child :pmoney="pmoney"></child>
+        </div> -->
+        <!-- 三、子给父传参 -->
+        <div style="background:red;height: 100px;padding: 10px;">
+            {{parentmsg}}
+            <child @myevent="mypevent($event)"></child>
+            {{cmoney}}
+        </div>
+    </div>
+    <script>
+        // 定义子组件---注意：一定要先注册组件再注册Vue实例
+        Vue.component("child", {
+            template: `
+            <div style="background:green">
+                <span>{{childmsg}}</span>
+                <br/>
+                <span>{{pmoney}}</span>
+                <button @click="mycevent()">点我向父组件传值</button>
+            </div>`,
+            data() {
+                return {
+                    childmsg: '我是子组件',
+                    cmoney: '这是儿子给的100元'
+                }
+            },
+            methods: {
+                mycevent() {
+                    console.log("传递过去了")
+                    this.$emit("myevent", this.cmoney)
+                }
+            },
+            // props:{
+            //     //类型检查--- 在此处检查父组件传递过来的是不是String格式
+            //     'pMoney': String
+            // }
+            props: ["pmoney"]
+        })
+        new Vue({
+            el: "#box",
+            data: {
+                parentmsg: '我是父组件',
+                pmoney: '这是父亲给的1500元',
+                cmoney: ''
+            },
+            methods: {
+                mypevent(ev) {
+                    console.log(ev);
+                    this.cmoney = ev;
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

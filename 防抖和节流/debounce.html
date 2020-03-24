@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>debounce</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="input">
+    <script>
+        // input输入框事项防抖
+        // function ajax(content) {
+        //     console.log(content);
+        //     // console.log(this)
+        // }
+        // // 防抖----节流就是当触发事件后在一定的时间内才会执行一次函数，如果这个时间内再一次触发了这个事件，它会重新计时到达时间后才会运行函数；
+        // function debounce(fun, delay) {//fun是需要防抖的函数；delay是需要延迟的时间
+        //     let timer = null;//利用闭包
+        //     return function (args) {
+        //         console.log(timer);
+        //         let that = this;
+        //         // let args = arguments[0];
+        //         // console.log(arguments);
+        //         if (timer !== null) {
+        //             clearTimeout(timer);
+        //         }
+        //         timer = setTimeout(function () {
+        //             fun.call(that, args);
+        //         }, delay)
+        //     }
+        // }
+        // var inputEl = document.getElementById('input');
+        // let debounceAjax = debounce(ajax, 500);
+        // inputEl.addEventListener("keyup", function (e) {
+        //     debounceAjax(e.target.value);
+        // });
+        // 页面滚动实现防抖
+        // function scroll() {
+        //     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        //     console.log(scrollTop)
+        // };
+        // function debounce(fun, delay) {//fun是需要防抖的函数；delay是需要延迟的时间
+        //     let timer = null;//利用闭包
+        //     return function () {
+        //         let that = this;
+        //         if (timer !== null) {
+        //             clearTimeout(timer);
+        //         }
+        //         timer = setTimeout(function () {
+        //             fun.call(that);
+        //         }, delay)
+        //     }
+        // }
+        // window.onscroll = debounce(scroll, 500);
+
+        // 上面scroll使用节流
+        // function throttle(fn, delay) {
+        //     let valid = true
+        //     return function () {
+        //         if (!valid) {
+        //             //休息时间 暂不接客
+        //             return false
+        //         }
+        //         // 工作时间，执行函数并且在间隔期内把状态位设为无效
+        //         valid = false
+        //         setTimeout(() => {
+        //             fn()
+        //             valid = true;
+        //         }, delay)
+        //     }
+        // }
+        // /* 请注意，节流函数并不止上面这种实现方案,
+        //    例如可以完全不借助setTimeout，可以把状态位换成时间戳，然后利用时间戳差值是否大于指定间隔时间来做判定。
+        //    也可以直接将setTimeout的返回的标记当做判断条件-判断当前定时器是否存在，如果存在表示还在冷却，并且在执行fn之后消除定时器表示激活，原理都一样
+        //     */
+
+        // // 以下照旧
+        // function showTop() {
+        //     var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        //     console.log('滚动条位置：' + scrollTop);
+        // }
+        // window.onscroll = throttle(showTop, 1000);
+        // input使用节流
+        function ajax(content) {
+            console.log(content);
+            // console.log(this)
+        }
+        function throttle(fn, delay) {
+            let timer =null;
+            let run = true;
+            return function (args) {
+                let that = this;
+                if (!run) {
+                   return;// 如果开关关闭了，那就直接不执行下边的代码
+                }
+                run = false;//在此处将run开关关闭，这样的话在定时器被放在宏任务里面被执行之前之后的所有触发事件的函数都不会执行
+                setTimeout(function () {
+                        fn.call(that, args);
+                        run = true;//定时器任务被任务队列执行完之后就会打开开关，后面的触发事件就可以执行这个函数了
+                    }, delay)
+
+            }
+        }
+        var inputEl = document.getElementById('input');
+        // 调用的时候
+        var throttle2 = throttle(ajax, 2000);
+        inputEl.addEventListener("keyup", function (e) {
+            throttle2(e.target.value);
+        });
+        // 这样，就实现了节流，节流还可以用时间间隔去控制，
+        // 就是记录上一次函数的执行时间，与当前时间作比较，如果当前时间与上次执行时间的时间差大于一个值，就执行。
+    </script>
+</body>
+
+</html>

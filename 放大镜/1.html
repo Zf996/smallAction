@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/1.css">
+</head>
+
+<body>
+    <!--  整个放大镜区域  -->
+    <div id="wrap">
+        <!-- 中图区域 -->
+        <div class="content">
+            <img src="images/md1.jpg" alt="">
+            <div class="shadow"></div>
+        </div>
+        <!-- 小图列表区域 -->
+        <div class="list">
+            <a href="" class="left"></a>
+            <div class="img-list">
+                <ul class="listLi">
+                    <li><img data-index="1" data-mdImg="images/md1.jpg" data-lgImg="images/lg1.png" class=""
+                            src="images/lm1.png" alt=""></li>
+                    <li><img data-index="1" data-mdImg="images/md2.jpg" data-lgImg="images/lg2.png" class=""
+                            src="images/lm2.png" alt=""></li>
+                    <li><img data-index="1" data-mdImg="images/md3.jpg" data-lgImg="images/lg3.png" class=""
+                            src="images/lm3.png" alt=""></li>
+                    <li><img data-index="1" data-mdImg="images/md4.jpg" data-lgImg="images/lg4.png" class=""
+                            src="images/lm4.png" alt=""></li>
+                    <li><img data-index="1" data-mdImg="images/md5.jpg" data-lgImg="images/lg5.png" class=""
+                            src="images/lm5.png" alt=""></li>
+                </ul>
+            </div>
+            <a href="" class="right"></a>
+        </div>
+        <!-- 大图区域 -->
+        <div class="big">
+            <img src="./images/lg1.png" alt="">
+        </div>
+    </div>
+    <script>
+        var num = 0;
+        var num2 = 0;
+        var max = 5;
+        var max2 = 30;
+
+        function time2() {
+            num2++;
+            //   0       30
+            if (num2 < max2) {
+                setTimeout(time2, 1000)
+                console.log('num2:  ' + num2)
+            }
+            else {
+                console.log('done2')
+
+
+            }
+        }
+        setTimeout(time2, 1000)
+
+        function time() {
+            num++;
+            //   0     5
+            if (num < max) {
+                setTimeout(time, 1000)
+                console.log('num: ' + num)
+            }
+            else {
+                console.log('done:发送请求')
+                num = 0;
+                if (num2 < max2) {
+                    setTimeout(time, 1000)
+                }
+            }
+        }
+        setTimeout(time, 1000)
+    </script>
+    <script src="./js/1.js">
+
+    </script>
+
+</body>
+
+</html>

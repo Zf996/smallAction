@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>touch</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color: lightcoral;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        // 使用原生js实现点击事件
+        let box = document.querySelector('.box');
+        box.ontouchstart = function(ev){
+            /**
+             * TouchEvent: 手指事件对象
+             *  changedTouches
+             *  touches: 手指操作的信息集合，集合中记录了每一根操作的手指的相关信息
+             * （包含触发点的坐标位置）；touches只有手指操作的时候才会存在
+             * */ 
+        }
+        box.ontouchmove = function(ev){
+            
+        }
+        box.ontouchend = function(ev){
+            
+        }
+    </script>
+    <script src="js/zepto.min.js"></script>
+    <script>
+        /*
+        * click在移动端是单击行为，当触发点吉操作后，浏览器总是会等待300ms,
+        验证是否触发了第二次点击操作，没有触发才会执行click对应的方法；
+        1.不建议大家在移动端使用click，（如果非要使用也可以，最好导入一个插件： fastclick.min.js 解决300ms延迟问题）
+        2.目前项目中移动端的点击操作基本上都是基于第三方类库（事件库）
+            zopto:提供了移动端很多的事件操作
+            touch.js：百度的
+            hammer.js：通用
+            ...
+        */
+    //    let $box = $('.box');
+    //    =>zepto中提供的专门供移动端操作的事件方法
+    $box.tap(ev => {
+        // 点击
+    })
+    $box.singletap(ev => {
+        // 单击
+    })
+    $box.doubletap(ev => {
+        // 双击
+    })
+    $box.longtap(ev => {
+        // 长按
+    })
+    $box.swipe(ev => {
+        // 滑动
+    })
+    $box.swipeLeft(ev => {
+        // 向左滑动
+    })
+    $box.swipeRight(ev => {
+        // 向左滑动
+    })
+    $box.swipeUp(ev => {
+        // 向左滑动
+    })
+    $box.swipeDown(ev => {
+        // 向左滑动
+    })
+    $box.pinchIn(ev => {
+        // 缩放
+    })
+    $box.pinchOut(ev => {
+        // 缩放
+    })
+    // =>zepto vs jq
+    /**
+     * 1.zopto没有考虑浏览器的兼容，专门为移动端开发的小型类库，
+     * 也仅仅是把jq中一些常用的方法实现了，很多的方法都没有实现（例如slideDown/show...在zopto中都没有实现）
+     * =》为了保证zepto的体积足够小
+     * 2.zepto中提供了移动端专门操作的事件方法（例如：tap等），这些方法都是基于移动端的touch和gestture事件模型封装好的方法
+     *  jq中并没有提供这些方法；
+     * */
+    </script>
+</body>
+</html>

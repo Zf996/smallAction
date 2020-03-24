@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>兄弟组件通信</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <weixingongzhonghao></weixingongzhonghao>
+        <weixinuser></weixinuser>
+    </div>
+    <script>
+        // 1.首先定义一个事件总线---就是一个空vue实例
+        var bus = new Vue();
+        Vue.component("weixingongzhonghao",{
+            template: `
+                <div>
+                    <input type="text" ref="mytext">
+                    <button @click="submit()">发布</button>
+                </div>
+            `,
+            data(){
+                return{
+                    brothermsg: "我已发布最新的消息"
+                }
+            },
+            methods:{
+                submit(){
+                    bus.$emit('weixinmessage',this.$refs.mytext.value)
+                }
+            }
+        })
+        Vue.component("weixinuser",{
+            // 在合适的位置先订阅好  bus.$on
+            template: `
+                <div>
+                    <span>我是订阅者</span>
+                    <span>我收到了消息：{{}}</span>
+                </div>
+            `,
+            mounted(){
+                // 在当前的dom组件调用完之后就开始监听
+                bus.$on("weixinmessage",(data)=>{
+                    // console.log('收到推送了');
+                    // 在此处就可以收到发布者传递过来的信息
+                    console.log('收到推送了',data);
+                    
+                })
+            }
+        })
+        var vm = new Vue({
+            el: "#box",
+            data:{},
+            methods:{}
+        })
+    </script>
+</body>
+</html>
