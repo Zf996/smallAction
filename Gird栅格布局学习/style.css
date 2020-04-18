@@ -1,0 +1,37 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 200px;
+}
+
+article {
+    width: 400px;
+    height: 200px;
+    border: solid 5px silver;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(4,1fr);
+    row-gap: 10px;
+    column-gap: 10px;
+    grid-template-areas: "left1 left1 right1 right1"
+                         "left1 left1 right1 right1";
+
+}
+
+article div {
+    background: blueviolet;
+    background-clip: content-box;
+    padding: 10px;
+    border: solid 1px #ddd;
+}
+.left1{
+    background-color: aqua;
+    grid-area: left1;
+}
+.right1{
+    background-color: blueviolet;
+    grid-area: right1;
+}

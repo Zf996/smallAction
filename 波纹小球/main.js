@@ -22,6 +22,7 @@ circlesArr.forEach((cols,i)=>{
     cols.forEach((circle,j)=>{
         circle.addEventListener("click",()=>{
             growCircle(i,j);
+            console.log(i,j)
         })
     })
 })
